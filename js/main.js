@@ -1,2 +1,1502 @@
-!function e(t,n,r){function o(i,l){if(!n[i]){if(!t[i]){var s="function"==typeof require&&require;if(!l&&s)return s(i,!0);if(a)return a(i,!0);var u=new Error("Cannot find module '"+i+"'");throw u.code="MODULE_NOT_FOUND",u}var c=n[i]={exports:{}};t[i][0].call(c.exports,function(e){var n=t[i][1][e];return o(n?n:e)},c,c.exports,e,t,n,r)}return n[i].exports}for(var a="function"==typeof require&&require,i=0;i<r.length;i++)o(r[i]);return o}({1:[function(e,t,n){"use strict";function r(e){var t,n,o=[];for(t=0;t<e.length;t++)n=e[t],o.push(null!==n.children?{tag:"div",attrs:{key:n.key},children:r(n.children)}:{tag:"span",attrs:{key:n.key},children:n.key.toString()});return o}function o(e,t,n){this.container=e,this.a=t,this.b=n}var a=e("vdom-benchmark-base"),i=e("mithril"),l="mithril",s="0.1.28";o.prototype.setUp=function(){},o.prototype.tearDown=function(){i.render(this.container,"",!0)},o.prototype.render=function(){i.render(this.container,{tag:"div",children:r(this.a)})},o.prototype.update=function(){i.render(this.container,{tag:"div",children:r(this.b)})},document.addEventListener("DOMContentLoaded",function(e){a(l,s,o)},!1)},{mithril:2,"vdom-benchmark-base":5}],2:[function(e,t,n){var r=function o(e,t){function n(e){S=e.document,j=e.location,M=e.cancelAnimationFrame||e.clearTimeout,A=e.requestAnimationFrame||e.setTimeout}function r(){var e,t=[].slice.call(arguments),n=!(null==t[1]||B.call(t[1])!==I||"tag"in t[1]||"view"in t[1]||"subtree"in t[1]),r=n?t[1]:{},o="class"in r?"class":"className",a={tag:"div",attrs:{}},i=[];if(B.call(t[0])!=D)throw new Error("selector in m(selector, attrs, children) should be a string");for(;e=U.exec(t[0]);)if(""===e[1]&&e[2])a.tag=e[2];else if("#"===e[1])a.attrs.id=e[2];else if("."===e[1])i.push(e[2]);else if("["===e[3][0]){var l=$.exec(e[3]);a.attrs[l[1]]=l[3]||(l[2]?"":!0)}var s=t.slice(n?2:1);a.children=1===s.length&&B.call(s[0])===R?s[0]:s;for(var u in r)r.hasOwnProperty(u)&&(u===o&&null!=r[u]&&""!==r[u]?(i.push(r[u]),a.attrs[u]=""):a.attrs[u]=r[u]);return i.length>0&&(a.attrs[o]=i.join(" ")),a}function a(e,n,o,u,d,f,h,p,m,g,v){try{(null==d||null==d.toString())&&(d="")}catch(y){d=""}if("retain"===d.subtree)return f;var w=B.call(f),x=B.call(d);if(null==f||w!==x){if(null!=f)if(o&&o.nodes){var b=p-u,C=b+(x===R?d:f.nodes).length;s(o.nodes.slice(b,C),o.slice(b,C))}else f.nodes&&s(f.nodes,f);f=new d.constructor,f.tag&&(f={}),f.nodes=[]}if(x===R){for(var E=0,k=d.length;k>E;E++)B.call(d[E])===R&&(d=d.concat.apply([],d),E--,k=d.length);for(var N=[],_=f.length===d.length,T=0,O=1,j=2,A=3,M={},U=!1,E=0;E<f.length;E++)f[E]&&f[E].attrs&&null!=f[E].attrs.key&&(U=!0,M[f[E].attrs.key]={action:O,index:E});for(var $=0,E=0,k=d.length;k>E;E++)if(d[E]&&d[E].attrs&&null!=d[E].attrs.key){for(var F=0,k=d.length;k>F;F++)d[F]&&d[F].attrs&&null==d[F].attrs.key&&(d[F].attrs.key="__mithril__"+$++);break}if(U){var H=!1;if(d.length!=f.length)H=!0;else for(var J,K,E=0;J=f[E],K=d[E];E++)if(J.attrs&&K.attrs&&J.attrs.key!=K.attrs.key){H=!0;break}if(H){for(var E=0,k=d.length;k>E;E++)if(d[E]&&d[E].attrs&&null!=d[E].attrs.key){var G=d[E].attrs.key;M[G]=M[G]?{action:A,index:E,from:M[G].index,element:f.nodes[M[G].index]||S.createElement("div")}:{action:j,index:E}}var P=[];for(var V in M)P.push(M[V]);var Q=P.sort(i),Y=new Array(f.length);Y.nodes=f.nodes.slice();for(var W,E=0;W=Q[E];E++){if(W.action===O&&(s(f[W.index].nodes,f[W.index]),Y.splice(W.index,1)),W.action===j){var X=S.createElement("div");X.key=d[W.index].attrs.key,e.insertBefore(X,e.childNodes[W.index]||null),Y.splice(W.index,0,{attrs:{key:d[W.index].attrs.key},nodes:[X]}),Y.nodes[W.index]=X}W.action===A&&(e.childNodes[W.index]!==W.element&&null!==W.element&&e.insertBefore(W.element,e.childNodes[W.index]||null),Y[W.index]=f[W.from],Y.nodes[W.index]=W.element)}f=Y}}for(var E=0,Z=0,k=d.length;k>E;E++){var te=a(e,n,f,p,d[E],f[Z],h,p+T||T,m,g,v);te!==t&&(te.nodes.intact||(_=!1),T+=te.$trusted?(te.match(/<[^\/]|\>\s*[^<]/g)||[0]).length:B.call(te)===R?te.length:1,f[Z++]=te)}if(!_){for(var E=0,k=d.length;k>E;E++)null!=f[E]&&N.push.apply(N,f[E].nodes);for(var ne,E=0;ne=f.nodes[E];E++)null!=ne.parentNode&&N.indexOf(ne)<0&&s([ne],[f[E]]);d.length<f.length&&(f.length=d.length),f.nodes=N}}else if(null!=d&&x===I){for(var oe=[],ae=[];d.view;){var ie=d.view.$original||d.view,le="diff"==r.redraw.strategy()&&f.views?f.views.indexOf(ie):-1,se=le>-1?f.controllers[le]:new(d.controller||z),G=d&&d.attrs&&d.attrs.key;if(d=0==re||f&&f.controllers&&f.controllers.indexOf(se)>-1?d.view(se):{tag:"placeholder"},"retain"===d.subtree)return f;G&&(d.attrs||(d.attrs={}),d.attrs.key=G),se.onunload&&ee.push({controller:se,handler:se.onunload}),oe.push(ie),ae.push(se)}if(!d.tag&&ae.length)throw new Error("Component template must return a virtual element, not an array, string, etc.");d.attrs||(d.attrs={}),f.attrs||(f.attrs={});var ue=Object.keys(d.attrs),ce=ue.length>("key"in d.attrs?1:0);if((d.tag!=f.tag||ue.sort().join()!=Object.keys(f.attrs).sort().join()||d.attrs.id!=f.attrs.id||d.attrs.key!=f.attrs.key||"all"==r.redraw.strategy()&&(!f.configContext||f.configContext.retain!==!0)||"diff"==r.redraw.strategy()&&f.configContext&&f.configContext.retain===!1)&&(f.nodes.length&&s(f.nodes),f.configContext&&typeof f.configContext.onunload===L&&f.configContext.onunload(),f.controllers))for(var se,E=0;se=f.controllers[E];E++)typeof se.onunload===L&&se.onunload({preventDefault:z});if(B.call(d.tag)!=D)return;var ne,de=0===f.nodes.length;if(d.attrs.xmlns?g=d.attrs.xmlns:"svg"===d.tag?g="http://www.w3.org/2000/svg":"math"===d.tag&&(g="http://www.w3.org/1998/Math/MathML"),de){if(ne=d.attrs.is?g===t?S.createElement(d.tag,d.attrs.is):S.createElementNS(g,d.tag,d.attrs.is):g===t?S.createElement(d.tag):S.createElementNS(g,d.tag),f={tag:d.tag,attrs:ce?l(ne,d.tag,d.attrs,{},g):d.attrs,children:null!=d.children&&d.children.length>0?a(ne,d.tag,t,t,d.children,f.children,!0,0,d.attrs.contenteditable?ne:m,g,v):d.children,nodes:[ne]},ae.length){f.views=oe,f.controllers=ae;for(var se,E=0;se=ae[E];E++)if(se.onunload&&se.onunload.$old&&(se.onunload=se.onunload.$old),re&&se.onunload){var fe=se.onunload;se.onunload=z,se.onunload.$old=fe}}f.children&&!f.children.nodes&&(f.children.nodes=[]),"select"===d.tag&&"value"in d.attrs&&l(ne,d.tag,{value:d.attrs.value},{},g),e.insertBefore(ne,e.childNodes[p]||null)}else ne=f.nodes[0],ce&&l(ne,d.tag,d.attrs,f.attrs,g),f.children=a(ne,d.tag,t,t,d.children,f.children,!1,0,d.attrs.contenteditable?ne:m,g,v),f.nodes.intact=!0,ae.length&&(f.views=oe,f.controllers=ae),h===!0&&null!=ne&&e.insertBefore(ne,e.childNodes[p]||null);if(typeof d.attrs.config===L){var he=f.configContext=f.configContext||{},pe=function(e,t){return function(){return e.attrs.config.apply(e,t)}};v.push(pe(d,[ne,!de,he,f]))}}else if(typeof d!=L){var N;0===f.nodes.length?(d.$trusted?N=c(e,p,d):(N=[S.createTextNode(d)],e.nodeName.match(q)||e.insertBefore(N[0],e.childNodes[p]||null)),f="string number boolean".indexOf(typeof d)>-1?new d.constructor(d):d,f.nodes=N):f.valueOf()!==d.valueOf()||h===!0?(N=f.nodes,m&&m===S.activeElement||(d.$trusted?(s(N,f),N=c(e,p,d)):"textarea"===n?e.value=d:m?m.innerHTML=d:((1===N[0].nodeType||N.length>1)&&(s(f.nodes,f),N=[S.createTextNode(d)]),e.insertBefore(N[0],e.childNodes[p]||null),N[0].nodeValue=d)),f=new d.constructor(d),f.nodes=N):f.nodes.intact=!0}return f}function i(e,t){return e.action-t.action||e.index-t.index}function l(e,t,n,r,o){for(var a in n){var i=n[a],l=r[a];if(a in r&&l===i)"value"===a&&"input"===t&&e.value!=i&&(e.value=i);else{r[a]=i;try{if("config"===a||"key"==a)continue;if(typeof i===L&&0===a.indexOf("on"))e[a]=d(i,e);else if("style"===a&&null!=i&&B.call(i)===I){for(var s in i)(null==l||l[s]!==i[s])&&(e.style[s]=i[s]);for(var s in l)s in i||(e.style[s]="")}else null!=o?"href"===a?e.setAttributeNS("http://www.w3.org/1999/xlink","href",i):"className"===a?e.setAttribute("class",i):e.setAttribute(a,i):a in e&&"list"!==a&&"style"!==a&&"form"!==a&&"type"!==a&&"width"!==a&&"height"!==a?("input"!==t||e[a]!==i)&&(e[a]=i):e.setAttribute(a,i)}catch(u){if(u.message.indexOf("Invalid argument")<0)throw u}}}return r}function s(e,t){for(var n=e.length-1;n>-1;n--)if(e[n]&&e[n].parentNode){try{e[n].parentNode.removeChild(e[n])}catch(r){}t=[].concat(t),t[n]&&u(t[n])}0!=e.length&&(e.length=0)}function u(e){if(e.configContext&&typeof e.configContext.onunload===L&&(e.configContext.onunload(),e.configContext.onunload=null),e.controllers)for(var t,n=0;t=e.controllers[n];n++)typeof t.onunload===L&&t.onunload({preventDefault:z});if(e.children)if(B.call(e.children)===R)for(var r,n=0;r=e.children[n];n++)u(r);else e.children.tag&&u(e.children)}function c(e,t,n){var r=e.childNodes[t];if(r){var o=1!=r.nodeType,a=S.createElement("span");o?(e.insertBefore(a,r||null),a.insertAdjacentHTML("beforebegin",n),e.removeChild(a)):r.insertAdjacentHTML("beforebegin",n)}else e.insertAdjacentHTML("beforeend",n);for(var i=[];e.childNodes[t]!==r;)i.push(e.childNodes[t]),t++;return i}function d(e,t){return function(n){n=n||event,r.redraw.strategy("diff"),r.startComputation();try{return e.call(t,n)}finally{oe()}}}function f(e){var t=J.indexOf(e);return 0>t?J.push(e)-1:t}function h(e){var t=function(){return arguments.length&&(e=arguments[0]),e};return t.toJSON=function(){return e},t}function p(e,t){var n=function(){return(e.controller||z).apply(this,t)||this},r=function(n){return arguments.length>1&&(t=t.concat([].slice.call(arguments,1))),e.view.apply(e,t?[n].concat(t):[n])};r.$original=e.view;var o={controller:n,view:r};return t[0]&&null!=t[0].key&&(o.attrs={key:t[0].key}),o}function m(){X&&(X(),X=null);for(var e,t=0;e=P[t];t++)if(Q[t]){var n=V[t].controller&&V[t].controller.$$args?[Q[t]].concat(V[t].controller.$$args):[Q[t]];r.render(e,V[t].view?V[t].view(Q[t],n):"")}Z&&(Z(),Z=null),Y=null,W=new Date,r.redraw.strategy("diff")}function g(e){return e.slice(le[r.route.mode].length)}function v(e,t,n){ae={};var o=n.indexOf("?");-1!==o&&(ae=b(n.substr(o+1,n.length)),n=n.substr(0,o));var a=Object.keys(t),i=a.indexOf(n);if(-1!==i)return r.mount(e,t[a[i]]),!0;for(var l in t){if(l===n)return r.mount(e,t[l]),!0;var s=new RegExp("^"+l.replace(/:[^\/]+?\.{3}/g,"(.*?)").replace(/:[^\/]+/g,"([^\\/]+)")+"/?$");if(s.test(n))return n.replace(s,function(){for(var n=l.match(/:[^\/]+/g)||[],o=[].slice.call(arguments,1,-2),a=0,i=n.length;i>a;a++)ae[n[a].replace(/:|\./g,"")]=decodeURIComponent(o[a]);r.mount(e,t[l])}),!0}}function y(e){if(e=e||event,!e.ctrlKey&&!e.metaKey&&2!==e.which){e.preventDefault?e.preventDefault():e.returnValue=!1;for(var t=e.currentTarget||e.srcElement,n="pathname"===r.route.mode&&t.search?b(t.search.slice(1)):{};t&&"A"!=t.nodeName.toUpperCase();)t=t.parentNode;r.route(t[r.route.mode].slice(le[r.route.mode].length),n)}}function w(){"hash"!=r.route.mode&&j.hash?j.hash=j.hash:e.scrollTo(0,0)}function x(e,n){var r={},o=[];for(var a in e){var i=n?n+"["+a+"]":a,l=e[a],s=B.call(l),u=null===l?encodeURIComponent(i):s===I?x(l,i):s===R?l.reduce(function(e,t){return r[i]||(r[i]={}),r[i][t]?e:(r[i][t]=!0,e.concat(encodeURIComponent(i)+"="+encodeURIComponent(t)))},[]).join("&"):encodeURIComponent(i)+"="+encodeURIComponent(l);l!==t&&o.push(u)}return o.join("&")}function b(e){"?"===e.charAt(0)&&(e=e.substring(1));for(var t=e.split("&"),n={},r=0,o=t.length;o>r;r++){var a=t[r].split("="),i=decodeURIComponent(a[0]),l=2==a.length?decodeURIComponent(a[1]):null;null!=n[i]?(B.call(n[i])!==R&&(n[i]=[n[i]]),n[i].push(l)):n[i]=l}return n}function C(e){var n=f(e);s(e.childNodes,K[n]),K[n]=t}function E(e,t){var n=r.prop(t);return e.then(n),n.then=function(n,r){return E(e.then(n,r),t)},n}function k(e,t){function n(e){d=e||u,h.map(function(e){d===s&&e.resolve(f)||e.reject(f)})}function o(e,t,n,o){if((null!=f&&B.call(f)===I||typeof f===L)&&typeof e===L)try{var a=0;e.call(f,function(e){a++||(f=e,t())},function(e){a++||(f=e,n())})}catch(i){r.deferred.onerror(i),f=i,n()}else o()}function a(){var u;try{u=f&&f.then}catch(h){return r.deferred.onerror(h),f=h,d=l,a()}o(u,function(){d=i,a()},function(){d=l,a()},function(){try{d===i&&typeof e===L?f=e(f):d===l&&"function"==typeof t&&(f=t(f),d=i)}catch(a){return r.deferred.onerror(a),f=a,n()}f===c?(f=TypeError(),n()):o(u,function(){n(s)},n,function(){n(d===i&&s)})})}var i=1,l=2,s=3,u=4,c=this,d=0,f=0,h=[];c.promise={},c.resolve=function(e){return d||(f=e,d=i,a()),this},c.reject=function(e){return d||(f=e,d=l,a()),this},c.promise.then=function(e,t){var n=new k(e,t);return d===s?n.resolve(f):d===u?n.reject(f):h.push(n),n.promise}}function N(e){return e}function _(n){if(!n.dataType||"jsonp"!==n.dataType.toLowerCase()){var r=new e.XMLHttpRequest;if(r.open(n.method,n.url,!0,n.user,n.password),r.onreadystatechange=function(){4===r.readyState&&(r.status>=200&&r.status<300?n.onload({type:"load",target:r}):n.onerror({type:"error",target:r}))},n.serialize===JSON.stringify&&n.data&&"GET"!==n.method&&r.setRequestHeader("Content-Type","application/json; charset=utf-8"),n.deserialize===JSON.parse&&r.setRequestHeader("Accept","application/json, text/*"),typeof n.config===L){var o=n.config(r,n);null!=o&&(r=o)}var a="GET"!==n.method&&n.data?n.data:"";if(a&&B.call(a)!=D&&a.constructor!=e.FormData)throw"Request data should be either be a string or FormData. Check the `serialize` option in `m.request`";return r.send(a),r}var i="mithril_callback_"+(new Date).getTime()+"_"+Math.round(1e16*Math.random()).toString(36),l=S.createElement("script");e[i]=function(r){l.parentNode.removeChild(l),n.onload({type:"load",target:{responseText:r}}),e[i]=t},l.onerror=function(r){return l.parentNode.removeChild(l),n.onerror({type:"error",target:{status:500,responseText:JSON.stringify({error:"Error making jsonp request"})}}),e[i]=t,!1},l.onload=function(e){return!1},l.src=n.url+(n.url.indexOf("?")>0?"&":"?")+(n.callbackKey?n.callbackKey:"callback")+"="+i+"&"+x(n.data||{}),S.body.appendChild(l)}function T(e,t,n){if("GET"===e.method&&"jsonp"!=e.dataType){var r=e.url.indexOf("?")<0?"?":"&",o=x(t);e.url=e.url+(o?r+o:"")}else e.data=n(t);return e}function O(e,t){var n=e.match(/:[a-z]\w+/gi);if(n&&t)for(var r=0;r<n.length;r++){var o=n[r].slice(1);e=e.replace(n[r],t[o]),delete t[o]}return e}var S,j,A,M,I="[object Object]",R="[object Array]",D="[object String]",L="function",B={}.toString,U=/(?:(^|#|\.)([^#\.\[\]]+))|(\[.+?\])/g,$=/\[(.+?)(?:=("|'|)(.*?)\2)?\]/,q=/^(AREA|BASE|BR|COL|COMMAND|EMBED|HR|IMG|INPUT|KEYGEN|LINK|META|PARAM|SOURCE|TRACK|WBR)$/,z=function(){};n(e);var F,H={appendChild:function(e){F===t&&(F=S.createElement("html")),S.documentElement&&S.documentElement!==e?S.replaceChild(e,S.documentElement):S.appendChild(e),this.childNodes=S.childNodes},insertBefore:function(e){this.appendChild(e)},childNodes:[]},J=[],K={};r.render=function(e,n,r){var o=[];if(!e)throw new Error("Ensure the DOM element being passed to m.route/m.mount/m.render is not undefined.");var i=f(e),l=e===S,u=l||e===S.documentElement?H:e;l&&"html"!=n.tag&&(n={tag:"html",attrs:{},children:n}),K[i]===t&&s(u.childNodes),r===!0&&C(e),K[i]=a(u,null,t,t,n,K[i],!1,0,null,t,o);for(var c=0,d=o.length;d>c;c++)o[c]()},r.trust=function(e){return e=new String(e),e.$trusted=!0,e},r.prop=function(e){return(null!=e&&B.call(e)===I||typeof e===L)&&typeof e.then===L?E(e):h(e)};var G,P=[],V=[],Q=[],Y=null,W=0,X=null,Z=null,ee=[],te=16;r.component=function(e){return p(e,[].slice.call(arguments,1))},r.mount=r.module=function(e,t){if(!e)throw new Error("Please ensure the DOM element exists before rendering a template into it.");var n=P.indexOf(e);0>n&&(n=P.length);for(var o,a=!1,i={preventDefault:function(){a=!0,X=Z=null}},l=0;o=ee[l];l++)o.handler.call(o.controller,i),o.controller.onunload=null;if(a)for(var o,l=0;o=ee[l];l++)o.controller.onunload=o.handler;else ee=[];if(Q[n]&&typeof Q[n].onunload===L&&Q[n].onunload(i),!a){r.redraw.strategy("all"),r.startComputation(),P[n]=e,arguments.length>2&&(t=subcomponent(t,[].slice.call(arguments,2)));var s=G=t=t||{controller:function(){}},u=t.controller||z,c=new u;return s===G&&(Q[n]=c,V[n]=t),oe(),Q[n]}};var ne=!1;r.redraw=function(t){ne||(ne=!0,Y&&t!==!0?(A===e.requestAnimationFrame||new Date-W>te)&&(Y>0&&M(Y),Y=A(m,te)):(m(),Y=A(function(){Y=null},te)),ne=!1)},r.redraw.strategy=r.prop();var re=0;r.startComputation=function(){re++},r.endComputation=function(){re=Math.max(re-1,0),0===re&&r.redraw()};var oe=function(){"none"==r.redraw.strategy()?(re--,r.redraw.strategy("diff")):r.endComputation()};r.withAttr=function(e,t){return function(n){n=n||event;var r=n.currentTarget||this;t(e in r?r[e]:r.getAttribute(e))}};var ae,ie,le={pathname:"",hash:"#",search:"?"},se=z,ue=!1;return r.route=function(){if(0===arguments.length)return ie;if(3===arguments.length&&B.call(arguments[1])===D){var t=arguments[0],n=arguments[1],o=arguments[2];se=function(e){var a=ie=g(e);if(!v(t,o,a)){if(ue)throw new Error("Ensure the default route matches one of the routes defined in m.route");ue=!0,r.route(n,!0),ue=!1}};var a="hash"===r.route.mode?"onhashchange":"onpopstate";e[a]=function(){var e=j[r.route.mode];"pathname"===r.route.mode&&(e+=j.search),ie!=g(e)&&se(e)},X=w,e[a]()}else if(arguments[0].addEventListener||arguments[0].attachEvent){var i=arguments[0],l=(arguments[1],arguments[2],arguments[3]);i.href=("pathname"!==r.route.mode?j.pathname:"")+le[r.route.mode]+l.attrs.href,i.addEventListener?(i.removeEventListener("click",y),i.addEventListener("click",y)):(i.detachEvent("onclick",y),i.attachEvent("onclick",y))}else if(B.call(arguments[0])===D){var s=ie;ie=arguments[0];var u=arguments[1]||{},c=ie.indexOf("?"),d=c>-1?b(ie.slice(c+1)):{};for(var f in u)d[f]=u[f];var h=x(d),p=c>-1?ie.slice(0,c):ie;h&&(ie=p+(-1===p.indexOf("?")?"?":"&")+h);var m=(3===arguments.length?arguments[2]:arguments[1])===!0||s===arguments[0];e.history.pushState?(X=w,Z=function(){e.history[m?"replaceState":"pushState"](null,S.title,le[r.route.mode]+ie)},se(le[r.route.mode]+ie)):(j[r.route.mode]=ie,se(le[r.route.mode]+ie))}},r.route.param=function(e){if(!ae)throw new Error("You must call m.route(element, defaultRoute, routes) before calling m.route.param()");return ae[e]},r.route.mode="search",r.route.buildQueryString=x,r.route.parseQueryString=b,r.deferred=function(){var e=new k;return e.promise=E(e.promise),e},r.deferred.onerror=function(e){if("[object Error]"===B.call(e)&&!e.constructor.toString().match(/ Error/))throw e},r.sync=function(e){function t(e,t){return function(r){return i[e]=r,t||(n="reject"),0===--a&&(o.promise(i),o[n](i)),r}}var n="resolve",o=r.deferred(),a=e.length,i=new Array(a);if(e.length>0)for(var l=0;l<e.length;l++)e[l].then(t(l,!0),t(l,!1));else o.resolve([]);return o.promise},r.request=function(e){e.background!==!0&&r.startComputation();var t=new k,n=e.dataType&&"jsonp"===e.dataType.toLowerCase(),o=e.serialize=n?N:e.serialize||JSON.stringify,a=e.deserialize=n?N:e.deserialize||JSON.parse,i=n?function(e){return e.responseText}:e.extract||function(e){return 0===e.responseText.length&&a===JSON.parse?null:e.responseText};return e.method=(e.method||"GET").toUpperCase(),e.url=O(e.url,e.data),e=T(e,e.data,o),e.onload=e.onerror=function(n){try{n=n||event;var o=("load"===n.type?e.unwrapSuccess:e.unwrapError)||N,l=o(a(i(n.target,e)),n.target);if("load"===n.type)if(B.call(l)===R&&e.type)for(var s=0;s<l.length;s++)l[s]=new e.type(l[s]);else e.type&&(l=new e.type(l));t["load"===n.type?"resolve":"reject"](l)}catch(n){r.deferred.onerror(n),t.reject(n)}e.background!==!0&&r.endComputation()},_(e),t.promise=E(t.promise,e.initialValue),t.promise},r.deps=function(t){return n(e=t||e),e},r.deps.factory=o,r}("undefined"!=typeof window?window:{});"undefined"!=typeof t&&null!==t&&t.exports?t.exports=r:"function"==typeof define&&define.amd&&define(function(){return r})},{}],3:[function(e,t,n){"use strict";function r(){this.running=!1,this.impl=null,this.tests=null,this.reportCallback=null,this.container=document.createElement("div"),this._runButton=document.getElementById("RunButton"),this._iterationsElement=document.getElementById("Iterations"),this._reportElement=document.createElement("pre"),document.body.appendChild(this.container),document.body.appendChild(this._reportElement);var e=this;this._runButton.addEventListener("click",function(t){if(t.preventDefault(),!e.running){var n=parseInt(e._iterationsElement.value);0>=n&&(n=10),e.run(n)}},!1),this.ready(!0)}var o=e("./executor");r.prototype.ready=function(e){this._runButton.disabled=e?"":"true"},r.prototype.run=function(e){var t=this;this.running=!0,this.ready(!1),new o(t.impl,t.container,t.tests,1,function(){new o(t.impl,t.container,t.tests,e,function(e){t._reportElement.textContent=JSON.stringify(e,null," "),t.running=!1,t.ready(!0),null!=t.reportCallback&&t.reportCallback(e)}).start()}).start()},t.exports=r},{"./executor":4}],4:[function(e,t,n){"use strict";function r(e,t,n,r,o,a){void 0===a&&(a=null),this.impl=e,this.container=t,this.tests=n,this.iterations=r,this.cb=o,this.iterCb=a,this._currentTest=0,this._currentIter=0,this._renderSamples=[],this._updateSamples=[],this._result=[],this._tasksCount=n.length*r,this._iter=this.iter.bind(this)}r.prototype.start=function(){this._iter()},r.prototype.finished=function(){this.cb(this._result)},r.prototype.progress=function(){if(0===this._currentTest&&0===this._currentIter)return 0;var e=this.tests;return(this._currentTest*e.length+this._currentIter)/(e.length*this.iterataions)},r.prototype.iter=function(){null!=this.iterCb&&this.iterCb(this);var e=this.tests;if(this._currentTest<e.length){var t=e[this._currentTest];if(this._currentIter<this.iterations){var n,r,o,a;n=new this.impl(this.container,t.data.a,t.data.b),n.setUp(),r=window.performance.now(),n.render(),o=window.performance.now()-r,r=window.performance.now(),n.update(),a=window.performance.now()-r,n.tearDown(),this._renderSamples.push(o),this._updateSamples.push(a),this._currentIter++}else this._result.push({name:t.name+" render()",data:this._renderSamples.slice(0)}),this._result.push({name:t.name+" update()",data:this._updateSamples.slice(0)}),this._currentTest++,this._currentIter=0,this._renderSamples=[],this._updateSamples=[];setTimeout(this._iter,0)}else this.finished()},t.exports=r},{}],5:[function(e,t,n){"use strict";function r(e,t){var n=document.createElement("script");n.src=e,n.onload=function(){l.tests=window.benchmarkTests(),l.ready(!0)},document.head.appendChild(n)}function o(e,t,n,r){window.addEventListener("message",function(o){var a=o.data,i=a.type;"tests"===i?(l.tests=a.data,l.reportCallback=function(o){e.postMessage({type:"report",data:{name:t,version:n,samples:o},id:r},"*")},l.ready(!0),e.postMessage({type:"ready",data:null,id:r},"*")):"run"===i&&l.run(a.data.iterations)},!1),e.postMessage({type:"init",data:null,id:r},"*")}function a(e,t,n){var a=function(e){if(""==e)return{};for(var t={},n=0;n<e.length;++n){var r=e[n].split("=",2);t[r[0]]=1==r.length?"":decodeURIComponent(r[1].replace(/\+/g," "))}return t}(window.location.search.substr(1).split("&"));void 0!==a.name&&(e=a.name),void 0!==a.version&&(t=a.version);var i,s=a.type;if("iframe"===s)i=a.id,void 0===i&&(i=null),o(window.parent,e,t,i);else if("window"===s)null!=window.opener?(i=a.id,void 0===i&&(i=null),o(window.opener,e,t,i)):console.log("Failed to initialize: opener window is NULL");else{var u=a.data;void 0!==u?r(u):console.log("Failed to initialize: cannot load tests data")}l.impl=n}var i=e("./benchmark"),l=new i;if("undefined"==typeof window.performance&&(window.performance={}),!window.performance.now){var s=Date.now();performance.timing&&performance.timing.navigationStart&&(s=performance.timing.navigationStart),window.performance.now=function(){return Date.now()-s}}t.exports=a},{"./benchmark":3}]},{},[1]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+var benchmark = require('vdom-benchmark-base');
+var m = require('mithril');
+
+var NAME = 'mithril';
+var VERSION = '0.2.0';
+
+function renderTree(nodes) {
+  var children = [];
+  var i;
+  var e;
+  var n;
+
+  for (i = 0; i < nodes.length; i++) {
+    n = nodes[i];
+    if (n.children !== null) {
+      children.push({tag: 'div', attrs: {key: n.key}, children: renderTree(n.children)});
+    } else {
+      children.push({tag: 'span', attrs: {key: n.key}, children: n.key.toString()});
+    }
+  }
+
+  return children;
+}
+
+function BenchmarkImpl(container, a, b) {
+  this.container = container;
+  this.a = a;
+  this.b = b;
+}
+
+BenchmarkImpl.prototype.setUp = function() {
+};
+
+BenchmarkImpl.prototype.tearDown = function() {
+  m.render(this.container, '', true);
+};
+
+BenchmarkImpl.prototype.render = function() {
+  m.render(this.container, {tag: 'div', children: renderTree(this.a)});
+};
+
+BenchmarkImpl.prototype.update = function() {
+  m.render(this.container, {tag: 'div', children: renderTree(this.b)});
+};
+
+document.addEventListener('DOMContentLoaded', function(e) {
+  benchmark(NAME, VERSION, BenchmarkImpl);
+}, false);
+
+},{"mithril":2,"vdom-benchmark-base":5}],2:[function(require,module,exports){
+var m = (function app(window, undefined) {
+	var OBJECT = "[object Object]", ARRAY = "[object Array]", STRING = "[object String]", FUNCTION = "function";
+	var type = {}.toString;
+	var parser = /(?:(^|#|\.)([^#\.\[\]]+))|(\[.+?\])/g, attrParser = /\[(.+?)(?:=("|'|)(.*?)\2)?\]/;
+	var voidElements = /^(AREA|BASE|BR|COL|COMMAND|EMBED|HR|IMG|INPUT|KEYGEN|LINK|META|PARAM|SOURCE|TRACK|WBR)$/;
+	var noop = function() {}
+
+	// caching commonly used variables
+	var $document, $location, $requestAnimationFrame, $cancelAnimationFrame;
+
+	// self invoking function needed because of the way mocks work
+	function initialize(window){
+		$document = window.document;
+		$location = window.location;
+		$cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
+		$requestAnimationFrame = window.requestAnimationFrame || window.setTimeout;
+	}
+
+	initialize(window);
+
+
+	/**
+	 * @typedef {String} Tag
+	 * A string that looks like -> div.classname#id[param=one][param2=two]
+	 * Which describes a DOM node
+	 */
+
+	/**
+	 *
+	 * @param {Tag} The DOM node tag
+	 * @param {Object=[]} optional key-value pairs to be mapped to DOM attrs
+	 * @param {...mNode=[]} Zero or more Mithril child nodes. Can be an array, or splat (optional)
+	 *
+	 */
+	function m() {
+		var args = [].slice.call(arguments);
+		var hasAttrs = args[1] != null && type.call(args[1]) === OBJECT && !("tag" in args[1] || "view" in args[1]) && !("subtree" in args[1]);
+		var attrs = hasAttrs ? args[1] : {};
+		var classAttrName = "class" in attrs ? "class" : "className";
+		var cell = {tag: "div", attrs: {}};
+		var match, classes = [];
+		if (type.call(args[0]) != STRING) throw new Error("selector in m(selector, attrs, children) should be a string")
+		while (match = parser.exec(args[0])) {
+			if (match[1] === "" && match[2]) cell.tag = match[2];
+			else if (match[1] === "#") cell.attrs.id = match[2];
+			else if (match[1] === ".") classes.push(match[2]);
+			else if (match[3][0] === "[") {
+				var pair = attrParser.exec(match[3]);
+				cell.attrs[pair[1]] = pair[3] || (pair[2] ? "" :true)
+			}
+		}
+
+		var children = hasAttrs ? args.slice(2) : args.slice(1);
+		if (children.length === 1 && type.call(children[0]) === ARRAY) {
+			cell.children = children[0]
+		}
+		else {
+			cell.children = children
+		}
+		
+		for (var attrName in attrs) {
+			if (attrs.hasOwnProperty(attrName)) {
+				if (attrName === classAttrName && attrs[attrName] != null && attrs[attrName] !== "") {
+					classes.push(attrs[attrName])
+					cell.attrs[attrName] = "" //create key in correct iteration order
+				}
+				else cell.attrs[attrName] = attrs[attrName]
+			}
+		}
+		if (classes.length > 0) cell.attrs[classAttrName] = classes.join(" ");
+		
+		return cell
+	}
+	function build(parentElement, parentTag, parentCache, parentIndex, data, cached, shouldReattach, index, editable, namespace, configs) {
+		//`build` is a recursive function that manages creation/diffing/removal of DOM elements based on comparison between `data` and `cached`
+		//the diff algorithm can be summarized as this:
+		//1 - compare `data` and `cached`
+		//2 - if they are different, copy `data` to `cached` and update the DOM based on what the difference is
+		//3 - recursively apply this algorithm for every array and for the children of every virtual element
+
+		//the `cached` data structure is essentially the same as the previous redraw's `data` data structure, with a few additions:
+		//- `cached` always has a property called `nodes`, which is a list of DOM elements that correspond to the data represented by the respective virtual element
+		//- in order to support attaching `nodes` as a property of `cached`, `cached` is *always* a non-primitive object, i.e. if the data was a string, then cached is a String instance. If data was `null` or `undefined`, cached is `new String("")`
+		//- `cached also has a `configContext` property, which is the state storage object exposed by config(element, isInitialized, context)
+		//- when `cached` is an Object, it represents a virtual element; when it's an Array, it represents a list of elements; when it's a String, Number or Boolean, it represents a text node
+
+		//`parentElement` is a DOM element used for W3C DOM API calls
+		//`parentTag` is only used for handling a corner case for textarea values
+		//`parentCache` is used to remove nodes in some multi-node cases
+		//`parentIndex` and `index` are used to figure out the offset of nodes. They're artifacts from before arrays started being flattened and are likely refactorable
+		//`data` and `cached` are, respectively, the new and old nodes being diffed
+		//`shouldReattach` is a flag indicating whether a parent node was recreated (if so, and if this node is reused, then this node must reattach itself to the new parent)
+		//`editable` is a flag that indicates whether an ancestor is contenteditable
+		//`namespace` indicates the closest HTML namespace as it cascades down from an ancestor
+		//`configs` is a list of config functions to run after the topmost `build` call finishes running
+
+		//there's logic that relies on the assumption that null and undefined data are equivalent to empty strings
+		//- this prevents lifecycle surprises from procedural helpers that mix implicit and explicit return statements (e.g. function foo() {if (cond) return m("div")}
+		//- it simplifies diffing code
+		//data.toString() might throw or return null if data is the return value of Console.log in Firefox (behavior depends on version)
+		try {if (data == null || data.toString() == null) data = "";} catch (e) {data = ""}
+		if (data.subtree === "retain") return cached;
+		var cachedType = type.call(cached), dataType = type.call(data);
+		if (cached == null || cachedType !== dataType) {
+			if (cached != null) {
+				if (parentCache && parentCache.nodes) {
+					var offset = index - parentIndex;
+					var end = offset + (dataType === ARRAY ? data : cached.nodes).length;
+					clear(parentCache.nodes.slice(offset, end), parentCache.slice(offset, end))
+				}
+				else if (cached.nodes) clear(cached.nodes, cached)
+			}
+			cached = new data.constructor;
+			if (cached.tag) cached = {}; //if constructor creates a virtual dom element, use a blank object as the base cached node instead of copying the virtual el (#277)
+			cached.nodes = []
+		}
+
+		if (dataType === ARRAY) {
+			//recursively flatten array
+			for (var i = 0, len = data.length; i < len; i++) {
+				if (type.call(data[i]) === ARRAY) {
+					data = data.concat.apply([], data);
+					i-- //check current index again and flatten until there are no more nested arrays at that index
+					len = data.length
+				}
+			}
+			
+			var nodes = [], intact = cached.length === data.length, subArrayCount = 0;
+
+			//keys algorithm: sort elements without recreating them if keys are present
+			//1) create a map of all existing keys, and mark all for deletion
+			//2) add new keys to map and mark them for addition
+			//3) if key exists in new list, change action from deletion to a move
+			//4) for each key, handle its corresponding action as marked in previous steps
+			var DELETION = 1, INSERTION = 2 , MOVE = 3;
+			var existing = {}, shouldMaintainIdentities = false;
+			for (var i = 0; i < cached.length; i++) {
+				if (cached[i] && cached[i].attrs && cached[i].attrs.key != null) {
+					shouldMaintainIdentities = true;
+					existing[cached[i].attrs.key] = {action: DELETION, index: i}
+				}
+			}
+			
+			var guid = 0
+			for (var i = 0, len = data.length; i < len; i++) {
+				if (data[i] && data[i].attrs && data[i].attrs.key != null) {
+					for (var j = 0, len = data.length; j < len; j++) {
+						if (data[j] && data[j].attrs && data[j].attrs.key == null) data[j].attrs.key = "__mithril__" + guid++
+					}
+					break
+				}
+			}
+			
+			if (shouldMaintainIdentities) {
+				var keysDiffer = false
+				if (data.length != cached.length) keysDiffer = true
+				else for (var i = 0, cachedCell, dataCell; cachedCell = cached[i], dataCell = data[i]; i++) {
+					if (cachedCell.attrs && dataCell.attrs && cachedCell.attrs.key != dataCell.attrs.key) {
+						keysDiffer = true
+						break
+					}
+				}
+				
+				if (keysDiffer) {
+					for (var i = 0, len = data.length; i < len; i++) {
+						if (data[i] && data[i].attrs) {
+							if (data[i].attrs.key != null) {
+								var key = data[i].attrs.key;
+								if (!existing[key]) existing[key] = {action: INSERTION, index: i};
+								else existing[key] = {
+									action: MOVE,
+									index: i,
+									from: existing[key].index,
+									element: cached.nodes[existing[key].index] || $document.createElement("div")
+								}
+							}
+						}
+					}
+					var actions = []
+					for (var prop in existing) actions.push(existing[prop])
+					var changes = actions.sort(sortChanges);
+					var newCached = new Array(cached.length)
+					newCached.nodes = cached.nodes.slice()
+
+					for (var i = 0, change; change = changes[i]; i++) {
+						if (change.action === DELETION) {
+							clear(cached[change.index].nodes, cached[change.index]);
+							newCached.splice(change.index, 1)
+						}
+						if (change.action === INSERTION) {
+							var dummy = $document.createElement("div");
+							dummy.key = data[change.index].attrs.key;
+							parentElement.insertBefore(dummy, parentElement.childNodes[change.index] || null);
+							newCached.splice(change.index, 0, {attrs: {key: data[change.index].attrs.key}, nodes: [dummy]})
+							newCached.nodes[change.index] = dummy
+						}
+
+						if (change.action === MOVE) {
+							if (parentElement.childNodes[change.index] !== change.element && change.element !== null) {
+								parentElement.insertBefore(change.element, parentElement.childNodes[change.index] || null)
+							}
+							newCached[change.index] = cached[change.from]
+							newCached.nodes[change.index] = change.element
+						}
+					}
+					cached = newCached;
+				}
+			}
+			//end key algorithm
+
+			for (var i = 0, cacheCount = 0, len = data.length; i < len; i++) {
+				//diff each item in the array
+				var item = build(parentElement, parentTag, cached, index, data[i], cached[cacheCount], shouldReattach, index + subArrayCount || subArrayCount, editable, namespace, configs);
+				if (item === undefined) continue;
+				if (!item.nodes.intact) intact = false;
+				if (item.$trusted) {
+					//fix offset of next element if item was a trusted string w/ more than one html element
+					//the first clause in the regexp matches elements
+					//the second clause (after the pipe) matches text nodes
+					subArrayCount += (item.match(/<[^\/]|\>\s*[^<]/g) || [0]).length
+				}
+				else subArrayCount += type.call(item) === ARRAY ? item.length : 1;
+				cached[cacheCount++] = item
+			}
+			if (!intact) {
+				//diff the array itself
+				
+				//update the list of DOM nodes by collecting the nodes from each item
+				for (var i = 0, len = data.length; i < len; i++) {
+					if (cached[i] != null) nodes.push.apply(nodes, cached[i].nodes)
+				}
+				//remove items from the end of the array if the new array is shorter than the old one
+				//if errors ever happen here, the issue is most likely a bug in the construction of the `cached` data structure somewhere earlier in the program
+				for (var i = 0, node; node = cached.nodes[i]; i++) {
+					if (node.parentNode != null && nodes.indexOf(node) < 0) clear([node], [cached[i]])
+				}
+				if (data.length < cached.length) cached.length = data.length;
+				cached.nodes = nodes
+			}
+		}
+		else if (data != null && dataType === OBJECT) {
+			var views = [], controllers = []
+			while (data.view) {
+				var view = data.view.$original || data.view
+				var controllerIndex = m.redraw.strategy() == "diff" && cached.views ? cached.views.indexOf(view) : -1
+				var controller = controllerIndex > -1 ? cached.controllers[controllerIndex] : new (data.controller || noop)
+				var key = data && data.attrs && data.attrs.key
+				data = pendingRequests == 0 || (cached && cached.controllers && cached.controllers.indexOf(controller) > -1) ? data.view(controller) : {tag: "placeholder"}
+				if (data.subtree === "retain") return cached;
+				if (key) {
+					if (!data.attrs) data.attrs = {}
+					data.attrs.key = key
+				}
+				if (controller.onunload) unloaders.push({controller: controller, handler: controller.onunload})
+				views.push(view)
+				controllers.push(controller)
+			}
+			if (!data.tag && controllers.length) throw new Error("Component template must return a virtual element, not an array, string, etc.")
+			if (!data.attrs) data.attrs = {};
+			if (!cached.attrs) cached.attrs = {};
+
+			var dataAttrKeys = Object.keys(data.attrs)
+			var hasKeys = dataAttrKeys.length > ("key" in data.attrs ? 1 : 0)
+			//if an element is different enough from the one in cache, recreate it
+			if (data.tag != cached.tag || dataAttrKeys.sort().join() != Object.keys(cached.attrs).sort().join() || data.attrs.id != cached.attrs.id || data.attrs.key != cached.attrs.key || (m.redraw.strategy() == "all" && (!cached.configContext || cached.configContext.retain !== true)) || (m.redraw.strategy() == "diff" && cached.configContext && cached.configContext.retain === false)) {
+				if (cached.nodes.length) clear(cached.nodes);
+				if (cached.configContext && typeof cached.configContext.onunload === FUNCTION) cached.configContext.onunload()
+				if (cached.controllers) {
+					for (var i = 0, controller; controller = cached.controllers[i]; i++) {
+						if (typeof controller.onunload === FUNCTION) controller.onunload({preventDefault: noop})
+					}
+				}
+			}
+			if (type.call(data.tag) != STRING) return;
+
+			var node, isNew = cached.nodes.length === 0;
+			if (data.attrs.xmlns) namespace = data.attrs.xmlns;
+			else if (data.tag === "svg") namespace = "http://www.w3.org/2000/svg";
+			else if (data.tag === "math") namespace = "http://www.w3.org/1998/Math/MathML";
+			
+			if (isNew) {
+				if (data.attrs.is) node = namespace === undefined ? $document.createElement(data.tag, data.attrs.is) : $document.createElementNS(namespace, data.tag, data.attrs.is);
+				else node = namespace === undefined ? $document.createElement(data.tag) : $document.createElementNS(namespace, data.tag);
+				cached = {
+					tag: data.tag,
+					//set attributes first, then create children
+					attrs: hasKeys ? setAttributes(node, data.tag, data.attrs, {}, namespace) : data.attrs,
+					children: data.children != null && data.children.length > 0 ?
+						build(node, data.tag, undefined, undefined, data.children, cached.children, true, 0, data.attrs.contenteditable ? node : editable, namespace, configs) :
+						data.children,
+					nodes: [node]
+				};
+				if (controllers.length) {
+					cached.views = views
+					cached.controllers = controllers
+					for (var i = 0, controller; controller = controllers[i]; i++) {
+						if (controller.onunload && controller.onunload.$old) controller.onunload = controller.onunload.$old
+						if (pendingRequests && controller.onunload) {
+							var onunload = controller.onunload
+							controller.onunload = noop
+							controller.onunload.$old = onunload
+						}
+					}
+				}
+				
+				if (cached.children && !cached.children.nodes) cached.children.nodes = [];
+				//edge case: setting value on <select> doesn't work before children exist, so set it again after children have been created
+				if (data.tag === "select" && "value" in data.attrs) setAttributes(node, data.tag, {value: data.attrs.value}, {}, namespace);
+				parentElement.insertBefore(node, parentElement.childNodes[index] || null)
+			}
+			else {
+				node = cached.nodes[0];
+				if (hasKeys) setAttributes(node, data.tag, data.attrs, cached.attrs, namespace);
+				cached.children = build(node, data.tag, undefined, undefined, data.children, cached.children, false, 0, data.attrs.contenteditable ? node : editable, namespace, configs);
+				cached.nodes.intact = true;
+				if (controllers.length) {
+					cached.views = views
+					cached.controllers = controllers
+				}
+				if (shouldReattach === true && node != null) parentElement.insertBefore(node, parentElement.childNodes[index] || null)
+			}
+			//schedule configs to be called. They are called after `build` finishes running
+			if (typeof data.attrs["config"] === FUNCTION) {
+				var context = cached.configContext = cached.configContext || {};
+
+				// bind
+				var callback = function(data, args) {
+					return function() {
+						return data.attrs["config"].apply(data, args)
+					}
+				};
+				configs.push(callback(data, [node, !isNew, context, cached]))
+			}
+		}
+		else if (typeof data != FUNCTION) {
+			//handle text nodes
+			var nodes;
+			if (cached.nodes.length === 0) {
+				if (data.$trusted) {
+					nodes = injectHTML(parentElement, index, data)
+				}
+				else {
+					nodes = [$document.createTextNode(data)];
+					if (!parentElement.nodeName.match(voidElements)) parentElement.insertBefore(nodes[0], parentElement.childNodes[index] || null)
+				}
+				cached = "string number boolean".indexOf(typeof data) > -1 ? new data.constructor(data) : data;
+				cached.nodes = nodes
+			}
+			else if (cached.valueOf() !== data.valueOf() || shouldReattach === true) {
+				nodes = cached.nodes;
+				if (!editable || editable !== $document.activeElement) {
+					if (data.$trusted) {
+						clear(nodes, cached);
+						nodes = injectHTML(parentElement, index, data)
+					}
+					else {
+						//corner case: replacing the nodeValue of a text node that is a child of a textarea/contenteditable doesn't work
+						//we need to update the value property of the parent textarea or the innerHTML of the contenteditable element instead
+						if (parentTag === "textarea") parentElement.value = data;
+						else if (editable) editable.innerHTML = data;
+						else {
+							if (nodes[0].nodeType === 1 || nodes.length > 1) { //was a trusted string
+								clear(cached.nodes, cached);
+								nodes = [$document.createTextNode(data)]
+							}
+							parentElement.insertBefore(nodes[0], parentElement.childNodes[index] || null);
+							nodes[0].nodeValue = data
+						}
+					}
+				}
+				cached = new data.constructor(data);
+				cached.nodes = nodes
+			}
+			else cached.nodes.intact = true
+		}
+
+		return cached
+	}
+	function sortChanges(a, b) {return a.action - b.action || a.index - b.index}
+	function setAttributes(node, tag, dataAttrs, cachedAttrs, namespace) {
+		for (var attrName in dataAttrs) {
+			var dataAttr = dataAttrs[attrName];
+			var cachedAttr = cachedAttrs[attrName];
+			if (!(attrName in cachedAttrs) || (cachedAttr !== dataAttr)) {
+				cachedAttrs[attrName] = dataAttr;
+				try {
+					//`config` isn't a real attributes, so ignore it
+					if (attrName === "config" || attrName == "key") continue;
+					//hook event handlers to the auto-redrawing system
+					else if (typeof dataAttr === FUNCTION && attrName.indexOf("on") === 0) {
+						node[attrName] = autoredraw(dataAttr, node)
+					}
+					//handle `style: {...}`
+					else if (attrName === "style" && dataAttr != null && type.call(dataAttr) === OBJECT) {
+						for (var rule in dataAttr) {
+							if (cachedAttr == null || cachedAttr[rule] !== dataAttr[rule]) node.style[rule] = dataAttr[rule]
+						}
+						for (var rule in cachedAttr) {
+							if (!(rule in dataAttr)) node.style[rule] = ""
+						}
+					}
+					//handle SVG
+					else if (namespace != null) {
+						if (attrName === "href") node.setAttributeNS("http://www.w3.org/1999/xlink", "href", dataAttr);
+						else if (attrName === "className") node.setAttribute("class", dataAttr);
+						else node.setAttribute(attrName, dataAttr)
+					}
+					//handle cases that are properties (but ignore cases where we should use setAttribute instead)
+					//- list and form are typically used as strings, but are DOM element references in js
+					//- when using CSS selectors (e.g. `m("[style='']")`), style is used as a string, but it's an object in js
+					else if (attrName in node && !(attrName === "list" || attrName === "style" || attrName === "form" || attrName === "type" || attrName === "width" || attrName === "height")) {
+						//#348 don't set the value if not needed otherwise cursor placement breaks in Chrome
+						if (tag !== "input" || node[attrName] !== dataAttr) node[attrName] = dataAttr
+					}
+					else node.setAttribute(attrName, dataAttr)
+				}
+				catch (e) {
+					//swallow IE's invalid argument errors to mimic HTML's fallback-to-doing-nothing-on-invalid-attributes behavior
+					if (e.message.indexOf("Invalid argument") < 0) throw e
+				}
+			}
+			//#348 dataAttr may not be a string, so use loose comparison (double equal) instead of strict (triple equal)
+			else if (attrName === "value" && tag === "input" && node.value != dataAttr) {
+				node.value = dataAttr
+			}
+		}
+		return cachedAttrs
+	}
+	function clear(nodes, cached) {
+		for (var i = nodes.length - 1; i > -1; i--) {
+			if (nodes[i] && nodes[i].parentNode) {
+				try {nodes[i].parentNode.removeChild(nodes[i])}
+				catch (e) {} //ignore if this fails due to order of events (see http://stackoverflow.com/questions/21926083/failed-to-execute-removechild-on-node)
+				cached = [].concat(cached);
+				if (cached[i]) unload(cached[i])
+			}
+		}
+		if (nodes.length != 0) nodes.length = 0
+	}
+	function unload(cached) {
+		if (cached.configContext && typeof cached.configContext.onunload === FUNCTION) {
+			cached.configContext.onunload();
+			cached.configContext.onunload = null
+		}
+		if (cached.controllers) {
+			for (var i = 0, controller; controller = cached.controllers[i]; i++) {
+				if (typeof controller.onunload === FUNCTION) controller.onunload({preventDefault: noop});
+			}
+		}
+		if (cached.children) {
+			if (type.call(cached.children) === ARRAY) {
+				for (var i = 0, child; child = cached.children[i]; i++) unload(child)
+			}
+			else if (cached.children.tag) unload(cached.children)
+		}
+	}
+	function injectHTML(parentElement, index, data) {
+		var nextSibling = parentElement.childNodes[index];
+		if (nextSibling) {
+			var isElement = nextSibling.nodeType != 1;
+			var placeholder = $document.createElement("span");
+			if (isElement) {
+				parentElement.insertBefore(placeholder, nextSibling || null);
+				placeholder.insertAdjacentHTML("beforebegin", data);
+				parentElement.removeChild(placeholder)
+			}
+			else nextSibling.insertAdjacentHTML("beforebegin", data)
+		}
+		else parentElement.insertAdjacentHTML("beforeend", data);
+		var nodes = [];
+		while (parentElement.childNodes[index] !== nextSibling) {
+			nodes.push(parentElement.childNodes[index]);
+			index++
+		}
+		return nodes
+	}
+	function autoredraw(callback, object) {
+		return function(e) {
+			e = e || event;
+			m.redraw.strategy("diff");
+			m.startComputation();
+			try {return callback.call(object, e)}
+			finally {
+				endFirstComputation()
+			}
+		}
+	}
+
+	var html;
+	var documentNode = {
+		appendChild: function(node) {
+			if (html === undefined) html = $document.createElement("html");
+			if ($document.documentElement && $document.documentElement !== node) {
+				$document.replaceChild(node, $document.documentElement)
+			}
+			else $document.appendChild(node);
+			this.childNodes = $document.childNodes
+		},
+		insertBefore: function(node) {
+			this.appendChild(node)
+		},
+		childNodes: []
+	};
+	var nodeCache = [], cellCache = {};
+	m.render = function(root, cell, forceRecreation) {
+		var configs = [];
+		if (!root) throw new Error("Ensure the DOM element being passed to m.route/m.mount/m.render is not undefined.");
+		var id = getCellCacheKey(root);
+		var isDocumentRoot = root === $document;
+		var node = isDocumentRoot || root === $document.documentElement ? documentNode : root;
+		if (isDocumentRoot && cell.tag != "html") cell = {tag: "html", attrs: {}, children: cell};
+		if (cellCache[id] === undefined) clear(node.childNodes);
+		if (forceRecreation === true) reset(root);
+		cellCache[id] = build(node, null, undefined, undefined, cell, cellCache[id], false, 0, null, undefined, configs);
+		for (var i = 0, len = configs.length; i < len; i++) configs[i]()
+	};
+	function getCellCacheKey(element) {
+		var index = nodeCache.indexOf(element);
+		return index < 0 ? nodeCache.push(element) - 1 : index
+	}
+
+	m.trust = function(value) {
+		value = new String(value);
+		value.$trusted = true;
+		return value
+	};
+
+	function gettersetter(store) {
+		var prop = function() {
+			if (arguments.length) store = arguments[0];
+			return store
+		};
+
+		prop.toJSON = function() {
+			return store
+		};
+
+		return prop
+	}
+
+	m.prop = function (store) {
+		//note: using non-strict equality check here because we're checking if store is null OR undefined
+		if (((store != null && type.call(store) === OBJECT) || typeof store === FUNCTION) && typeof store.then === FUNCTION) {
+			return propify(store)
+		}
+
+		return gettersetter(store)
+	};
+
+	var roots = [], components = [], controllers = [], lastRedrawId = null, lastRedrawCallTime = 0, computePreRedrawHook = null, computePostRedrawHook = null, prevented = false, topComponent, unloaders = [];
+	var FRAME_BUDGET = 16; //60 frames per second = 1 call per 16 ms
+	function parameterize(component, args) {
+		var controller = function() {
+			return (component.controller || noop).apply(this, args) || this
+		}
+		var view = function(ctrl) {
+			if (arguments.length > 1) args = args.concat([].slice.call(arguments, 1))
+			return component.view.apply(component, args ? [ctrl].concat(args) : [ctrl])
+		}
+		view.$original = component.view
+		var output = {controller: controller, view: view}
+		if (args[0] && args[0].key != null) output.attrs = {key: args[0].key}
+		return output
+	}
+	m.component = function(component) {
+		return parameterize(component, [].slice.call(arguments, 1))
+	}
+	m.mount = m.module = function(root, component) {
+		if (!root) throw new Error("Please ensure the DOM element exists before rendering a template into it.");
+		var index = roots.indexOf(root);
+		if (index < 0) index = roots.length;
+		
+		var isPrevented = false;
+		var event = {preventDefault: function() {
+			isPrevented = true;
+			computePreRedrawHook = computePostRedrawHook = null;
+		}};
+		for (var i = 0, unloader; unloader = unloaders[i]; i++) {
+			unloader.handler.call(unloader.controller, event)
+			unloader.controller.onunload = null
+		}
+		if (isPrevented) {
+			for (var i = 0, unloader; unloader = unloaders[i]; i++) unloader.controller.onunload = unloader.handler
+		}
+		else unloaders = []
+		
+		if (controllers[index] && typeof controllers[index].onunload === FUNCTION) {
+			controllers[index].onunload(event)
+		}
+		
+		if (!isPrevented) {
+			m.redraw.strategy("all");
+			m.startComputation();
+			roots[index] = root;
+			if (arguments.length > 2) component = subcomponent(component, [].slice.call(arguments, 2))
+			var currentComponent = topComponent = component = component || {controller: function() {}};
+			var constructor = component.controller || noop
+			var controller = new constructor;
+			//controllers may call m.mount recursively (via m.route redirects, for example)
+			//this conditional ensures only the last recursive m.mount call is applied
+			if (currentComponent === topComponent) {
+				controllers[index] = controller;
+				components[index] = component
+			}
+			endFirstComputation();
+			return controllers[index]
+		}
+	};
+	var redrawing = false
+	m.redraw = function(force) {
+		if (redrawing) return
+		redrawing = true
+		//lastRedrawId is a positive number if a second redraw is requested before the next animation frame
+		//lastRedrawID is null if it's the first redraw and not an event handler
+		if (lastRedrawId && force !== true) {
+			//when setTimeout: only reschedule redraw if time between now and previous redraw is bigger than a frame, otherwise keep currently scheduled timeout
+			//when rAF: always reschedule redraw
+			if ($requestAnimationFrame === window.requestAnimationFrame || new Date - lastRedrawCallTime > FRAME_BUDGET) {
+				if (lastRedrawId > 0) $cancelAnimationFrame(lastRedrawId);
+				lastRedrawId = $requestAnimationFrame(redraw, FRAME_BUDGET)
+			}
+		}
+		else {
+			redraw();
+			lastRedrawId = $requestAnimationFrame(function() {lastRedrawId = null}, FRAME_BUDGET)
+		}
+		redrawing = false
+	};
+	m.redraw.strategy = m.prop();
+	function redraw() {
+		if (computePreRedrawHook) {
+			computePreRedrawHook()
+			computePreRedrawHook = null
+		}
+		for (var i = 0, root; root = roots[i]; i++) {
+			if (controllers[i]) {
+				var args = components[i].controller && components[i].controller.$$args ? [controllers[i]].concat(components[i].controller.$$args) : [controllers[i]]
+				m.render(root, components[i].view ? components[i].view(controllers[i], args) : "")
+			}
+		}
+		//after rendering within a routed context, we need to scroll back to the top, and fetch the document title for history.pushState
+		if (computePostRedrawHook) {
+			computePostRedrawHook();
+			computePostRedrawHook = null
+		}
+		lastRedrawId = null;
+		lastRedrawCallTime = new Date;
+		m.redraw.strategy("diff")
+	}
+
+	var pendingRequests = 0;
+	m.startComputation = function() {pendingRequests++};
+	m.endComputation = function() {
+		pendingRequests = Math.max(pendingRequests - 1, 0);
+		if (pendingRequests === 0) m.redraw()
+	};
+	var endFirstComputation = function() {
+		if (m.redraw.strategy() == "none") {
+			pendingRequests--
+			m.redraw.strategy("diff")
+		}
+		else m.endComputation();
+	}
+
+	m.withAttr = function(prop, withAttrCallback) {
+		return function(e) {
+			e = e || event;
+			var currentTarget = e.currentTarget || this;
+			withAttrCallback(prop in currentTarget ? currentTarget[prop] : currentTarget.getAttribute(prop))
+		}
+	};
+
+	//routing
+	var modes = {pathname: "", hash: "#", search: "?"};
+	var redirect = noop, routeParams, currentRoute, isDefaultRoute = false;
+	m.route = function() {
+		//m.route()
+		if (arguments.length === 0) return currentRoute;
+		//m.route(el, defaultRoute, routes)
+		else if (arguments.length === 3 && type.call(arguments[1]) === STRING) {
+			var root = arguments[0], defaultRoute = arguments[1], router = arguments[2];
+			redirect = function(source) {
+				var path = currentRoute = normalizeRoute(source);
+				if (!routeByValue(root, router, path)) {
+					if (isDefaultRoute) throw new Error("Ensure the default route matches one of the routes defined in m.route")
+					isDefaultRoute = true
+					m.route(defaultRoute, true)
+					isDefaultRoute = false
+				}
+			};
+			var listener = m.route.mode === "hash" ? "onhashchange" : "onpopstate";
+			window[listener] = function() {
+				var path = $location[m.route.mode]
+				if (m.route.mode === "pathname") path += $location.search
+				if (currentRoute != normalizeRoute(path)) {
+					redirect(path)
+				}
+			};
+			computePreRedrawHook = setScroll;
+			window[listener]()
+		}
+		//config: m.route
+		else if (arguments[0].addEventListener || arguments[0].attachEvent) {
+			var element = arguments[0];
+			var isInitialized = arguments[1];
+			var context = arguments[2];
+			var vdom = arguments[3];
+			element.href = (m.route.mode !== 'pathname' ? $location.pathname : '') + modes[m.route.mode] + vdom.attrs.href;
+			if (element.addEventListener) {
+				element.removeEventListener("click", routeUnobtrusive);
+				element.addEventListener("click", routeUnobtrusive)
+			}
+			else {
+				element.detachEvent("onclick", routeUnobtrusive);
+				element.attachEvent("onclick", routeUnobtrusive)
+			}
+		}
+		//m.route(route, params, shouldReplaceHistoryEntry)
+		else if (type.call(arguments[0]) === STRING) {
+			var oldRoute = currentRoute;
+			currentRoute = arguments[0];
+			var args = arguments[1] || {}
+			var queryIndex = currentRoute.indexOf("?")
+			var params = queryIndex > -1 ? parseQueryString(currentRoute.slice(queryIndex + 1)) : {}
+			for (var i in args) params[i] = args[i]
+			var querystring = buildQueryString(params)
+			var currentPath = queryIndex > -1 ? currentRoute.slice(0, queryIndex) : currentRoute
+			if (querystring) currentRoute = currentPath + (currentPath.indexOf("?") === -1 ? "?" : "&") + querystring;
+
+			var shouldReplaceHistoryEntry = (arguments.length === 3 ? arguments[2] : arguments[1]) === true || oldRoute === arguments[0];
+
+			if (window.history.pushState) {
+				computePreRedrawHook = setScroll
+				computePostRedrawHook = function() {
+					window.history[shouldReplaceHistoryEntry ? "replaceState" : "pushState"](null, $document.title, modes[m.route.mode] + currentRoute);
+				};
+				redirect(modes[m.route.mode] + currentRoute)
+			}
+			else {
+				$location[m.route.mode] = currentRoute
+				redirect(modes[m.route.mode] + currentRoute)
+			}
+		}
+	};
+	m.route.param = function(key) {
+		if (!routeParams) throw new Error("You must call m.route(element, defaultRoute, routes) before calling m.route.param()")
+		return routeParams[key]
+	};
+	m.route.mode = "search";
+	function normalizeRoute(route) {
+		return route.slice(modes[m.route.mode].length)
+	}
+	function routeByValue(root, router, path) {
+		routeParams = {};
+
+		var queryStart = path.indexOf("?");
+		if (queryStart !== -1) {
+			routeParams = parseQueryString(path.substr(queryStart + 1, path.length));
+			path = path.substr(0, queryStart)
+		}
+
+		// Get all routes and check if there's
+		// an exact match for the current path
+		var keys = Object.keys(router);
+		var index = keys.indexOf(path);
+		if(index !== -1){
+			m.mount(root, router[keys [index]]);
+			return true;
+		}
+
+		for (var route in router) {
+			if (route === path) {
+				m.mount(root, router[route]);
+				return true
+			}
+
+			var matcher = new RegExp("^" + route.replace(/:[^\/]+?\.{3}/g, "(.*?)").replace(/:[^\/]+/g, "([^\\/]+)") + "\/?$");
+
+			if (matcher.test(path)) {
+				path.replace(matcher, function() {
+					var keys = route.match(/:[^\/]+/g) || [];
+					var values = [].slice.call(arguments, 1, -2);
+					for (var i = 0, len = keys.length; i < len; i++) routeParams[keys[i].replace(/:|\./g, "")] = decodeURIComponent(values[i])
+					m.mount(root, router[route])
+				});
+				return true
+			}
+		}
+	}
+	function routeUnobtrusive(e) {
+		e = e || event;
+		if (e.ctrlKey || e.metaKey || e.which === 2) return;
+		if (e.preventDefault) e.preventDefault();
+		else e.returnValue = false;
+		var currentTarget = e.currentTarget || e.srcElement;
+		var args = m.route.mode === "pathname" && currentTarget.search ? parseQueryString(currentTarget.search.slice(1)) : {};
+		while (currentTarget && currentTarget.nodeName.toUpperCase() != "A") currentTarget = currentTarget.parentNode
+		m.route(currentTarget[m.route.mode].slice(modes[m.route.mode].length), args)
+	}
+	function setScroll() {
+		if (m.route.mode != "hash" && $location.hash) $location.hash = $location.hash;
+		else window.scrollTo(0, 0)
+	}
+	function buildQueryString(object, prefix) {
+		var duplicates = {}
+		var str = []
+		for (var prop in object) {
+			var key = prefix ? prefix + "[" + prop + "]" : prop
+			var value = object[prop]
+			var valueType = type.call(value)
+			var pair = (value === null) ? encodeURIComponent(key) :
+				valueType === OBJECT ? buildQueryString(value, key) :
+				valueType === ARRAY ? value.reduce(function(memo, item) {
+					if (!duplicates[key]) duplicates[key] = {}
+					if (!duplicates[key][item]) {
+						duplicates[key][item] = true
+						return memo.concat(encodeURIComponent(key) + "=" + encodeURIComponent(item))
+					}
+					return memo
+				}, []).join("&") :
+				encodeURIComponent(key) + "=" + encodeURIComponent(value)
+			if (value !== undefined) str.push(pair)
+		}
+		return str.join("&")
+	}
+	function parseQueryString(str) {
+		if (str.charAt(0) === "?") str = str.substring(1);
+		
+		var pairs = str.split("&"), params = {};
+		for (var i = 0, len = pairs.length; i < len; i++) {
+			var pair = pairs[i].split("=");
+			var key = decodeURIComponent(pair[0])
+			var value = pair.length == 2 ? decodeURIComponent(pair[1]) : null
+			if (params[key] != null) {
+				if (type.call(params[key]) !== ARRAY) params[key] = [params[key]]
+				params[key].push(value)
+			}
+			else params[key] = value
+		}
+		return params
+	}
+	m.route.buildQueryString = buildQueryString
+	m.route.parseQueryString = parseQueryString
+	
+	function reset(root) {
+		var cacheKey = getCellCacheKey(root);
+		clear(root.childNodes, cellCache[cacheKey]);
+		cellCache[cacheKey] = undefined
+	}
+
+	m.deferred = function () {
+		var deferred = new Deferred();
+		deferred.promise = propify(deferred.promise);
+		return deferred
+	};
+	function propify(promise, initialValue) {
+		var prop = m.prop(initialValue);
+		promise.then(prop);
+		prop.then = function(resolve, reject) {
+			return propify(promise.then(resolve, reject), initialValue)
+		};
+		return prop
+	}
+	//Promiz.mithril.js | Zolmeister | MIT
+	//a modified version of Promiz.js, which does not conform to Promises/A+ for two reasons:
+	//1) `then` callbacks are called synchronously (because setTimeout is too slow, and the setImmediate polyfill is too big
+	//2) throwing subclasses of Error cause the error to be bubbled up instead of triggering rejection (because the spec does not account for the important use case of default browser error handling, i.e. message w/ line number)
+	function Deferred(successCallback, failureCallback) {
+		var RESOLVING = 1, REJECTING = 2, RESOLVED = 3, REJECTED = 4;
+		var self = this, state = 0, promiseValue = 0, next = [];
+
+		self["promise"] = {};
+
+		self["resolve"] = function(value) {
+			if (!state) {
+				promiseValue = value;
+				state = RESOLVING;
+
+				fire()
+			}
+			return this
+		};
+
+		self["reject"] = function(value) {
+			if (!state) {
+				promiseValue = value;
+				state = REJECTING;
+
+				fire()
+			}
+			return this
+		};
+
+		self.promise["then"] = function(successCallback, failureCallback) {
+			var deferred = new Deferred(successCallback, failureCallback);
+			if (state === RESOLVED) {
+				deferred.resolve(promiseValue)
+			}
+			else if (state === REJECTED) {
+				deferred.reject(promiseValue)
+			}
+			else {
+				next.push(deferred)
+			}
+			return deferred.promise
+		};
+
+		function finish(type) {
+			state = type || REJECTED;
+			next.map(function(deferred) {
+				state === RESOLVED && deferred.resolve(promiseValue) || deferred.reject(promiseValue)
+			})
+		}
+
+		function thennable(then, successCallback, failureCallback, notThennableCallback) {
+			if (((promiseValue != null && type.call(promiseValue) === OBJECT) || typeof promiseValue === FUNCTION) && typeof then === FUNCTION) {
+				try {
+					// count protects against abuse calls from spec checker
+					var count = 0;
+					then.call(promiseValue, function(value) {
+						if (count++) return;
+						promiseValue = value;
+						successCallback()
+					}, function (value) {
+						if (count++) return;
+						promiseValue = value;
+						failureCallback()
+					})
+				}
+				catch (e) {
+					m.deferred.onerror(e);
+					promiseValue = e;
+					failureCallback()
+				}
+			} else {
+				notThennableCallback()
+			}
+		}
+
+		function fire() {
+			// check if it's a thenable
+			var then;
+			try {
+				then = promiseValue && promiseValue.then
+			}
+			catch (e) {
+				m.deferred.onerror(e);
+				promiseValue = e;
+				state = REJECTING;
+				return fire()
+			}
+			thennable(then, function() {
+				state = RESOLVING;
+				fire()
+			}, function() {
+				state = REJECTING;
+				fire()
+			}, function() {
+				try {
+					if (state === RESOLVING && typeof successCallback === FUNCTION) {
+						promiseValue = successCallback(promiseValue)
+					}
+					else if (state === REJECTING && typeof failureCallback === "function") {
+						promiseValue = failureCallback(promiseValue);
+						state = RESOLVING
+					}
+				}
+				catch (e) {
+					m.deferred.onerror(e);
+					promiseValue = e;
+					return finish()
+				}
+
+				if (promiseValue === self) {
+					promiseValue = TypeError();
+					finish()
+				}
+				else {
+					thennable(then, function () {
+						finish(RESOLVED)
+					}, finish, function () {
+						finish(state === RESOLVING && RESOLVED)
+					})
+				}
+			})
+		}
+	}
+	m.deferred.onerror = function(e) {
+		if (type.call(e) === "[object Error]" && !e.constructor.toString().match(/ Error/)) throw e
+	};
+
+	m.sync = function(args) {
+		var method = "resolve";
+		function synchronizer(pos, resolved) {
+			return function(value) {
+				results[pos] = value;
+				if (!resolved) method = "reject";
+				if (--outstanding === 0) {
+					deferred.promise(results);
+					deferred[method](results)
+				}
+				return value
+			}
+		}
+
+		var deferred = m.deferred();
+		var outstanding = args.length;
+		var results = new Array(outstanding);
+		if (args.length > 0) {
+			for (var i = 0; i < args.length; i++) {
+				args[i].then(synchronizer(i, true), synchronizer(i, false))
+			}
+		}
+		else deferred.resolve([]);
+
+		return deferred.promise
+	};
+	function identity(value) {return value}
+
+	function ajax(options) {
+		if (options.dataType && options.dataType.toLowerCase() === "jsonp") {
+			var callbackKey = "mithril_callback_" + new Date().getTime() + "_" + (Math.round(Math.random() * 1e16)).toString(36);
+			var script = $document.createElement("script");
+
+			window[callbackKey] = function(resp) {
+				script.parentNode.removeChild(script);
+				options.onload({
+					type: "load",
+					target: {
+						responseText: resp
+					}
+				});
+				window[callbackKey] = undefined
+			};
+
+			script.onerror = function(e) {
+				script.parentNode.removeChild(script);
+
+				options.onerror({
+					type: "error",
+					target: {
+						status: 500,
+						responseText: JSON.stringify({error: "Error making jsonp request"})
+					}
+				});
+				window[callbackKey] = undefined;
+
+				return false
+			};
+
+			script.onload = function(e) {
+				return false
+			};
+
+			script.src = options.url
+				+ (options.url.indexOf("?") > 0 ? "&" : "?")
+				+ (options.callbackKey ? options.callbackKey : "callback")
+				+ "=" + callbackKey
+				+ "&" + buildQueryString(options.data || {});
+			$document.body.appendChild(script)
+		}
+		else {
+			var xhr = new window.XMLHttpRequest;
+			xhr.open(options.method, options.url, true, options.user, options.password);
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4) {
+					if (xhr.status >= 200 && xhr.status < 300) options.onload({type: "load", target: xhr});
+					else options.onerror({type: "error", target: xhr})
+				}
+			};
+			if (options.serialize === JSON.stringify && options.data && options.method !== "GET") {
+				xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8")
+			}
+			if (options.deserialize === JSON.parse) {
+				xhr.setRequestHeader("Accept", "application/json, text/*");
+			}
+			if (typeof options.config === FUNCTION) {
+				var maybeXhr = options.config(xhr, options);
+				if (maybeXhr != null) xhr = maybeXhr
+			}
+
+			var data = options.method === "GET" || !options.data ? "" : options.data
+			if (data && (type.call(data) != STRING && data.constructor != window.FormData)) {
+				throw "Request data should be either be a string or FormData. Check the `serialize` option in `m.request`";
+			}
+			xhr.send(data);
+			return xhr
+		}
+	}
+	function bindData(xhrOptions, data, serialize) {
+		if (xhrOptions.method === "GET" && xhrOptions.dataType != "jsonp") {
+			var prefix = xhrOptions.url.indexOf("?") < 0 ? "?" : "&";
+			var querystring = buildQueryString(data);
+			xhrOptions.url = xhrOptions.url + (querystring ? prefix + querystring : "")
+		}
+		else xhrOptions.data = serialize(data);
+		return xhrOptions
+	}
+	function parameterizeUrl(url, data) {
+		var tokens = url.match(/:[a-z]\w+/gi);
+		if (tokens && data) {
+			for (var i = 0; i < tokens.length; i++) {
+				var key = tokens[i].slice(1);
+				url = url.replace(tokens[i], data[key]);
+				delete data[key]
+			}
+		}
+		return url
+	}
+
+	m.request = function(xhrOptions) {
+		if (xhrOptions.background !== true) m.startComputation();
+		var deferred = new Deferred();
+		var isJSONP = xhrOptions.dataType && xhrOptions.dataType.toLowerCase() === "jsonp";
+		var serialize = xhrOptions.serialize = isJSONP ? identity : xhrOptions.serialize || JSON.stringify;
+		var deserialize = xhrOptions.deserialize = isJSONP ? identity : xhrOptions.deserialize || JSON.parse;
+		var extract = isJSONP ? function(jsonp) {return jsonp.responseText} : xhrOptions.extract || function(xhr) {
+			return xhr.responseText.length === 0 && deserialize === JSON.parse ? null : xhr.responseText
+		};
+		xhrOptions.method = (xhrOptions.method || 'GET').toUpperCase();
+		xhrOptions.url = parameterizeUrl(xhrOptions.url, xhrOptions.data);
+		xhrOptions = bindData(xhrOptions, xhrOptions.data, serialize);
+		xhrOptions.onload = xhrOptions.onerror = function(e) {
+			try {
+				e = e || event;
+				var unwrap = (e.type === "load" ? xhrOptions.unwrapSuccess : xhrOptions.unwrapError) || identity;
+				var response = unwrap(deserialize(extract(e.target, xhrOptions)), e.target);
+				if (e.type === "load") {
+					if (type.call(response) === ARRAY && xhrOptions.type) {
+						for (var i = 0; i < response.length; i++) response[i] = new xhrOptions.type(response[i])
+					}
+					else if (xhrOptions.type) response = new xhrOptions.type(response)
+				}
+				deferred[e.type === "load" ? "resolve" : "reject"](response)
+			}
+			catch (e) {
+				m.deferred.onerror(e);
+				deferred.reject(e)
+			}
+			if (xhrOptions.background !== true) m.endComputation()
+		};
+		ajax(xhrOptions);
+		deferred.promise = propify(deferred.promise, xhrOptions.initialValue);
+		return deferred.promise
+	};
+
+	//testing API
+	m.deps = function(mock) {
+		initialize(window = mock || window);
+		return window;
+	};
+	//for internal testing only, do not use `m.deps.factory`
+	m.deps.factory = app;
+
+	return m
+})(typeof window != "undefined" ? window : {});
+
+if (typeof module != "undefined" && module !== null && module.exports) module.exports = m;
+else if (typeof define === "function" && define.amd) define(function() {return m});
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+var Executor = require('./executor');
+
+function Benchmark() {
+  this.running = false;
+  this.impl = null;
+  this.tests = null;
+  this.reportCallback = null;
+
+  this.container = document.createElement('div');
+
+  this._runButton = document.getElementById('RunButton');
+  this._iterationsElement = document.getElementById('Iterations');
+  this._reportElement = document.createElement('pre');
+
+  document.body.appendChild(this.container);
+  document.body.appendChild(this._reportElement);
+
+  var self = this;
+
+  this._runButton.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    if (!self.running) {
+      var iterations = parseInt(self._iterationsElement.value);
+      if (iterations <= 0) {
+        iterations = 10;
+      }
+
+      self.run(iterations);
+    }
+  }, false);
+
+  this.ready(true);
+}
+
+Benchmark.prototype.ready = function(v) {
+  if (v) {
+    this._runButton.disabled = '';
+  } else {
+    this._runButton.disabled = 'true';
+  }
+};
+
+Benchmark.prototype.run = function(iterations) {
+  var self = this;
+  this.running = true;
+  this.ready(false);
+
+  new Executor(self.impl, self.container, self.tests, 1, function() { // warmup
+    new Executor(self.impl, self.container, self.tests, iterations, function(samples) {
+      self._reportElement.textContent = JSON.stringify(samples, null, ' ');
+      self.running = false;
+      self.ready(true);
+      if (self.reportCallback != null) {
+        self.reportCallback(samples);
+      }
+    }).start();
+  }).start();
+};
+
+module.exports = Benchmark;
+
+},{"./executor":4}],4:[function(require,module,exports){
+'use strict';
+
+function Executor(impl, container, tests, iterations, cb, iterCb) {
+  if (iterCb === void 0) iterCb = null;
+
+  this.impl = impl;
+  this.container = container;
+  this.tests = tests;
+  this.iterations = iterations;
+  this.cb = cb;
+  this.iterCb = iterCb;
+
+  this._currentTest = 0;
+  this._currentIter = 0;
+  this._renderSamples = [];
+  this._updateSamples = [];
+  this._result = [];
+
+  this._tasksCount = tests.length * iterations;
+
+  this._iter = this.iter.bind(this);
+}
+
+Executor.prototype.start = function() {
+  this._iter();
+};
+
+Executor.prototype.finished = function() {
+  this.cb(this._result);
+};
+
+Executor.prototype.progress = function() {
+  if (this._currentTest === 0 && this._currentIter === 0) {
+    return 0;
+  }
+
+  var tests = this.tests;
+  return (this._currentTest * tests.length + this._currentIter) / (tests.length * this.iterataions);
+};
+
+Executor.prototype.iter = function() {
+  if (this.iterCb != null) {
+    this.iterCb(this);
+  }
+
+  var tests = this.tests;
+
+  if (this._currentTest < tests.length) {
+    var test = tests[this._currentTest];
+
+    if (this._currentIter < this.iterations) {
+      var e, t;
+      var renderTime, updateTime;
+
+      e = new this.impl(this.container, test.data.a, test.data.b);
+      e.setUp();
+
+      t = window.performance.now();
+      e.render();
+      renderTime = window.performance.now() - t;
+
+      t = window.performance.now();
+      e.update();
+      updateTime = window.performance.now() - t;
+      e.tearDown();
+
+      this._renderSamples.push(renderTime);
+      this._updateSamples.push(updateTime);
+
+      this._currentIter++;
+    } else {
+      this._result.push({
+        name: test.name + ' ' + 'render()',
+        data: this._renderSamples.slice(0)
+      });
+
+      this._result.push({
+        name: test.name + ' ' + 'update()',
+        data: this._updateSamples.slice(0)
+      });
+
+      this._currentTest++;
+
+      this._currentIter = 0;
+      this._renderSamples = [];
+      this._updateSamples = [];
+    }
+
+    setTimeout(this._iter, 0);
+  } else {
+    this.finished();
+  }
+};
+
+module.exports = Executor;
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
+var Benchmark = require('./benchmark');
+var benchmark = new Benchmark();
+
+function initFromScript(scriptUrl, impl) {
+  var e = document.createElement('script');
+  e.src = scriptUrl;
+
+  e.onload = function() {
+    benchmark.tests = window.benchmarkTests();
+    benchmark.ready(true);
+  };
+
+  document.head.appendChild(e);
+}
+
+function initFromParentWindow(parent, name, version, id) {
+  window.addEventListener('message', function(e) {
+    var data = e.data;
+    var type = data.type;
+
+    if (type === 'tests') {
+      benchmark.tests = data.data;
+      benchmark.reportCallback = function(samples) {
+        parent.postMessage({
+          type: 'report',
+          data: {
+            name: name,
+            version: version,
+            samples: samples
+          },
+          id: id
+        }, '*');
+      };
+      benchmark.ready(true);
+
+      parent.postMessage({
+        type: 'ready',
+        data: null,
+        id: id
+      }, '*');
+    } else if (type === 'run') {
+      benchmark.run(data.data.iterations);
+    }
+  }, false);
+
+  parent.postMessage({
+    type: 'init',
+    data: null,
+    id: id
+  }, '*');
+}
+
+function init(name, version, impl) {
+  // Parse Query String.
+  var qs = (function(a) {
+    if (a == "") return {};
+    var b = {};
+    for (var i = 0; i < a.length; ++i) {
+      var p=a[i].split('=', 2);
+      if (p.length == 1) {
+        b[p[0]] = "";
+      } else {
+        b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+      }
+    }
+    return b;
+  })(window.location.search.substr(1).split('&'));
+
+  if (qs['name'] !== void 0) {
+    name = qs['name'];
+  }
+
+  if (qs['version'] !== void 0) {
+    version = qs['version'];
+  }
+
+  var type = qs['type'];
+  var id;
+  if (type === 'iframe') {
+    id = qs['id'];
+    if (id === void 0) id = null;
+    initFromParentWindow(window.parent, name, version, id);
+  } else if (type === 'window') {
+    if (window.opener != null) {
+      id = qs['id'];
+      if (id === void 0) id = null;
+      initFromParentWindow(window.opener, name, version, id);
+    } else {
+      console.log('Failed to initialize: opener window is NULL');
+    }
+  } else {
+    var testsUrl = qs['data']; // url to the script generating test data
+    if (testsUrl !== void 0) {
+      initFromScript(testsUrl);
+    } else {
+      console.log('Failed to initialize: cannot load tests data');
+    }
+  }
+
+  benchmark.impl = impl;
+}
+
+// performance.now() polyfill
+// https://gist.github.com/paulirish/5438650
+// prepare base perf object
+if (typeof window.performance === 'undefined') {
+  window.performance = {};
+}
+if (!window.performance.now){
+  var nowOffset = Date.now();
+  if (performance.timing && performance.timing.navigationStart) {
+    nowOffset = performance.timing.navigationStart;
+  }
+  window.performance.now = function now(){
+    return Date.now() - nowOffset;
+  };
+}
+
+module.exports = init;
+
+},{"./benchmark":3}]},{},[1])
+
+
 //# sourceMappingURL=main.js.map
