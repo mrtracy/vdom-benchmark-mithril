@@ -236,7 +236,10 @@ var m = (function app(window, undefined) {
 						}
 					}
 					var actions = []
-					for (var prop in existing) actions.push(existing[prop])
+                    var existingKeys = Object.keys(existing);
+                    for (var i = 0, len = existingKeys.length; i < len; i++) {
+                       actions.push(existing[existingKeys[i]]);
+                    }
 					var changes = actions.sort(sortChanges);
 					var newCached = new Array(cached.length)
 					newCached.nodes = cached.nodes.slice()
